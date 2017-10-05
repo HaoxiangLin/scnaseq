@@ -66,6 +66,11 @@
     <version>1.2</version>
 </dependency>
 <dependency>
+    <groupId>pal</groupId>
+    <artifactId>pal</artifactId>
+    <version>1.5.1</version>
+</dependency>
+<dependency>
     <groupId>net.sourceforge.jexcelapi</groupId>
     <artifactId>jxl</artifactId>
     <version>2.6.12</version>
