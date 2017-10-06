@@ -151,16 +151,16 @@
  								<transformers>
                 				<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   				<manifestEntries>
-                    				<Main-Class>japsa.tools.bio.np.RealtimeSpeciesTypingCmd</Main-Class>
+                    				<Main-Class>lc1.dp.appl.CNVHap</Main-Class>
                   				</manifestEntries>
                			 		</transformer>				
               				</transformers>
-              				<finalName>japsa-1.7.8a</finalName>
+              				<finalName>scnaseq0.5</finalName>
               				<excludes>
               					<exclude>japsa/**</exclude>
               				</excludes>
               				<includes>
-              					<include>japsa/tools/bio/np/RealtimeSpeciesTypingCmd</include>
+              					<include>lc1/dp/appl/CNVHap</include>
               				</includes>
                         </configuration>
                     </execution>
