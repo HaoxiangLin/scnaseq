@@ -1,0 +1,279 @@
+
+#--removeSingletonDropouts true
+--proportionOfDistanceToNextProbeToExtend 0.0
+--exponentB 1:1:1:1:1:1:1
+--data_params data3.csv 
+--seed 3487523
+--maxCoordDiff 3000000
+--run2 false
+--scaleLoc 3e8:5e7
+--noSampleFromBeta 1
+--cumulativeR 100
+--downsample 1:1  ## mixture then reference
+--dilute 1:0  ## mixture then reference, no dilution is 1:0
+--updateCellularity true
+--experiment  TCGA_P5CD_1
+--include  TCGA_P5CD_1 
+--trainTransitions true
+--initialCellularity 1.0
+--restrictIndivTo null:null:null:null:null:null
+--fillLikelihood  0:0:0:0:0:0:0
+--numIt		  25	 	
+
+--numPcs 10
+
+--trainGlobal     false  
+--pseudoMod1 1:1:1:1:1:1
+##--extraChrom all cytoBand.txt
+
+--allowFlips true
+
+--includeSNPS  true:true:true:true:true:true:true:true 
+
+--alleleDiffThresh 0.3
+--readClusters    false         
+--transferGlobalLocal true
+--readGlobalClusterFile true
+  
+--isLogProbs  true
+
+
+--expPriors true
+
+
+
+--convertIds true
+
+--reverse false 
+
+
+
+--annotateName false
+--drawAnnotationLines false
+--annotateClusterPosition true
+
+
+--NAthresh  0.5
+
+
+
+
+
+
+
+--numRep                        1     
+  
+
+
+
+
+
+
+
+
+
+
+
+--pseudo__frac        0.8:0.8:0.8:0.9:1.0:0.9	
+--pseudo__start       0.01:50:1:5:1:1      
+--pseudo__limit	      0.01:50:1:5:1:1         
+--pseudo__index_start 0:100:0:0:0:0		
+
+--pseudo__update_freq 0:0:0:0:0:0				
+
+
+
+
+--pseudo1__frac  NA:0.8:NA:NA:NA:1			
+--pseudo1__start NA:10:NA:NA:NA:NA                   
+--pseudo1__limit NA:10:NA:NA:NA:NA                  
+--pseudo1__index_start NA:5:NA:NA:NA:0		 
+--pseudo1__update_freq NA:0:NA:NA:NA:0			 
+
+
+--pseudo2__frac        NA:0.9:NA:NA:NA:1	
+--pseudo2__start       NA:0.1:NA:NA:NA:1            
+--pseudo2__limit       NA:0.1:NA:NA:NA:1          
+--pseudo2__index_start NA:0:NA:NA:NA:0		
+--pseudo2__update_freq NA:0:NA:NA:NA:0				
+
+
+
+
+
+--pseudo3__frac        NA:0.9:0.9:0.9:0.9:NA	 
+--pseudo3__start       NA:1:20:80:10:NA            
+--pseudo3__limit       NA:1:20:80:10:NA         
+--pseudo3__index_start NA:0:100:100:10:NA		
+--pseudo3__update_freq NA:0:0:0:0:NA				
+
+
+
+--changePriorCount 2
+
+--noSamplesFromHMM              1     
+--keepBest false     
+--saveStatePath false  
+
+
+
+
+--probCrossOverBetweenBP 1e-15
+
+--includeRCN  null 0.5:1.5:2.0:2.5   #which RCN to include in maximisation 
+
+--penaliseEnd false
+--maxCN 5
+--modify0 null  0:1:2:3:4:5:6:7:8:9:10   :11:12        :13:14:15:16   :17:18
+
+--modifyFrac0  null 1e-6::1e-6:1e-6:1e-7:1e-7:1e-7:1e-7   
+--modifyFrac2  null 1e-6::1e-6:1e-6:1e-7:1e-7:1e-7:1e-7   #0.5:0.5:1e-1:1e-1:1e-1:1e-1   
+
+--modifyFracStart  null 1e-15::1e-15:1e-15:1e-15:1e-15:1e-15:1e-15    
+--expModelIntHotSpot1   1;1;1;1 
+
+--expModelIntHotSpot 1:1:1  
+--gammaRate 5e-3:5e-3
+--transferEquilToStart false
+--diffRatesPerState false
+--expand 8:8:1:1:1 
+--useSameModelForAllCN true
+--transitions2 1;5:2;6:3;8:4;7
+--skewTransitions 0.2:0.2  
+
+
+--expand_init_prior  1:10:1:1e5:1e5    
+				   
+--transMode0	0	    
+--trans1	true        
+--transMode2  4:0:4   
+--svnTransM 1
+--rotate false
+--expSd 0.00:0.00
+
+
+
+--u_global                      1e10:1e10:1e5:1e5  
+--u_global1                     1e10:1e10:1e5:1e5    
+--samplePermute			0.0		 
+
+
+
+--lrr0 -5.0
+--orthogonal true   
+--supressR false    
+--supressB false 
+
+--trainIndivClusters false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--bmid 0.5 
+
+--r_train2 1;1;1:0;0;0   
+--b_train2 1;1;1
+--rho_train2 1e3:1e3
+
+
+
+
+
+
+--rhoMax 0.99
+--singleBClust false
+
+--numThreads 1
+--regress   0:1:2:3:4:5:6:7:8:9:10	
+	
+	
+
+
+
+--sepModels false	
+
+--halfNormal true    
+
+--regressVariance true:true
+--maximiseGlobalRegress true
+
+
+
+--plotMerged false
+ --usePhenotypeVals true
+--equalRank false
+ --showNA false 
+#--color pink:red:gray~0.5:green:cyan:
+--color pink:red:gray:green:cyan:magenta:orange:yellow:blue:blue:blue:blue   :magenta:green~0.3:cyan~0.3:blue~0.3:magenta~0.3:orange~0.3:yellow~0.3
+#--color pink:red~0.5:red:gray~0.5:gray:green~0.5:green:cyan~0.5:cyan:blue~0.5:blue:magenta~0.5:magenta:green~0.3:cyan~0.3:blue~0.3:magenta~0.3:orange~0.3:yellow~0.3
+#--color pink:red:red:orange:orange:yellow:gray~0.5:green:cyan:blue:magenta:green~0.3:cyan~0.3:blue~0.3:magenta~0.3:orange~0.3:yellow~0.3
+--includeLegend false
+
+--bufferCompress true
+--annotationTail 0.2
+--scatterWidth 350
+--shapeSize 2
+--plotCNAsShape true
+--plot 1  
+--plotFlux true
+--state_brightness 0.3		
+--showHaps false
+--b_panel false
+--r_panel false
+--showScatter true
+--showHMM false
+--plotHeight 400  800
+--r_panel_width 1500 16000
+--useLocInHap false
+--showHapAllele true
+--pdf png:png  
+--showEnsThresh 0000000  
+--showAll true:true   
+--expandScatter 3   
+--scatterPlotsPerPage 21
+--snpsToPlot all
+--haplotypeHeight 8  
+--haplotypeWidth  8
+
+--haploImageType png
+--imputedThreshGraph 0.9:0.9
+--qualityThresh 0.1
+--maxLogP 30
+
+--writeHMM 1     
+--overwrite true  
+#--writeAverages countAll:state 
+--writeRes false
+--saveModel false
+--writeMergedAverageFiles false
+
+--calcAssoc false
+--assocTest 3 
+--ld_r2_thresh  0.01	 
+
+
+
+
+
+
+
+--experimentPhenoFile pheno.txt
+
+
+
+--priorOdds 0.5
+
