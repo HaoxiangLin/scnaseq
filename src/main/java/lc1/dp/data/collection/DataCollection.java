@@ -5563,9 +5563,11 @@ public  DataCollection (File f, short index, int no_copies, final int[][] mid,Fi
    // if(loc.size()==0) return;
     this.makeDistributions(index);
     Set<String> toDelete = new HashSet<String>();
+    if(zf!=null){
      if(Constants.loess(index) || Constants.gc(index)){
          toDelete.addAll(this.applyLoess(zf, platem, Constants.loess(index), Constants.gc(index),pref));
      }
+    }
     /* if(platem.size()>0){
     	List<String> plateToInclude = Arrays.asList(Constants.platesToInclude(index));
     	List<String> plateToExclude = Arrays.asList(Constants.platesToExclude(index));
@@ -5589,7 +5591,7 @@ public  DataCollection (File f, short index, int no_copies, final int[][] mid,Fi
     		 }
     	 }
      }*/
-     if(Constants.median_correction(index) && !(chrom.startsWith("X") || chrom.startsWith("Y"))){
+     if(zf!=null && Constants.median_correction(index) && !(chrom.startsWith("X") || chrom.startsWith("Y"))){
          this.applyMedianCorrection(zf,dToInc);
      }
      if(zf!=null) this.applyVarianceThreshold(zf, 

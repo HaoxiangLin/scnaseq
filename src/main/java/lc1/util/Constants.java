@@ -145,7 +145,21 @@ public class Constants {
 		final boolean transpose;
 		List<String[]> res = new ArrayList<String[]>();
 	public CSVDataParams(File ff) throws Exception {
+		
 		this.ff =ff;
+		if(!ff.exists()){
+			String[] classpath = System.getProperty("java.class.path").split(":");
+			inner: for(int i =0; i<classpath.length; i++ ){
+				File f = new File(classpath[i]);
+				File f1 = new File(f.getParentFile(), "extra-resources");
+				if(f1.exists()){
+					ff = new File(f1, "data3.csv");
+					this.ff = ff;
+					if(ff.exists()) break inner;
+				}
+			}
+		}
+		
 		BufferedReader br = new BufferedReader(new FileReader(ff));
 		String st =br.readLine();
 		String[]str = st.replaceAll("\"", "").split(sep);
@@ -1275,7 +1289,8 @@ public static void resetIndices(){
 
 	public static CommandLine parse(String[] args, Integer column, int rep,
 			String repControl) throws Exception {
-		CommandLine res = parse(args, OPTIONS, column, rep, repControl, null);
+		CommandLine res = parse(args, OPTIONS, column, rep, repControl, null, true);
+		
 		Constants.column = column;
 		Constants.index = rep;
 		Constants.indexControl = repControl;
@@ -1283,7 +1298,7 @@ public static void resetIndices(){
 	}
 
 	public static CommandLine parse(String[] args) throws Exception {
-		return parse(args, OPTIONS, 1, 1, null, null);
+		return parse(args, OPTIONS, 1, 1, null, null, true);
 	}
 
 	public static CommandLine parseSimple(String[] args) throws Exception {
@@ -1431,7 +1446,7 @@ public static Map<String, String> set = new HashMap<String, String>();
 					|| field.getName().startsWith("loc_params")) {
 				String[] args1 = Constants.read(new File(opt.getValue()),
 						column, index, repControl,paramsa);
-				Constants.parse(args1, options, 1, 1, repControl, paramsa);
+				Constants.parse(args1, options, 1, 1, repControl, paramsa, false);
 			}
 		 
 			 else if (field.getName().startsWith("data_params")) {
@@ -1573,10 +1588,13 @@ public static Map<String, String> set = new HashMap<String, String>();
 					List<String> toIncludeSet = Arrays
 							.asList(Constants.include);
 					toInclude = new int[toIncludeSet.size()];
+					boolean[]  useDefault = new boolean[toInclude.length];
 					for(int i=0; i<toInclude.length; i++){
 						toInclude[i] = origOrder.indexOf(toIncludeSet.get(i));
 						if(toInclude[i]<0){
-							throw new RuntimeException("nothing found for "+toIncludeSet.get(i));
+							toInclude[i] = origOrder.indexOf("DEFAULT");
+							useDefault[i] = true;
+							if(toInclude[i]<0) throw new RuntimeException("nothing found for "+toIncludeSet.get(i));
 						}
 					}
 					/*for (int i = 0; i < toInclude.length; i++) {
@@ -1599,6 +1617,9 @@ public static Map<String, String> set = new HashMap<String, String>();
 							String.class);
 					originalInput = (String[]) thin(originalInput, toInclude,
 							String.class);
+					for(int i=0; i<originalInput.length; i++){
+						if(useDefault[i]) originalInput[i] = toIncludeSet.get(i);
+					}
 					System.err.println("set inputDir" + " : "
 							+ getString(inputDirNew));
 					Constants.class.getField("inputDir").set(null, inputDirNew);
@@ -1627,6 +1648,15 @@ public static Map<String, String> set = new HashMap<String, String>();
 						System.err.println(f.getName());
 						Object vals = getVals(process(cell, vals_), cl,
 								toInclude);
+						if(cl.equals(String.class)){
+							Object[] vls = (Object[])vals;
+							for(int ii=0; ii<vls.length; ii++){
+								if(vls[ii].equals("DEFAULT")) vls[ii] = toIncludeSet.get(ii);
+							}
+							
+						}
+						
+						
 						// Object va1 = expand(vals, alias, cl);
 						//Object va = thin(vals, toInclude, cl);
 						if(!paramsa.hasOption(f.getName()) && !paramsb.hasOption(f.getName())){
@@ -1825,7 +1855,7 @@ public static Map<String, String> set = new HashMap<String, String>();
 	}
 
 	public static CommandLine parse(String[] args, Options opti,
-			Integer column, int rep, String repControl, CommandLine params1) throws Exception {
+			Integer column, int rep, String repControl, CommandLine params1, boolean hasParams) throws Exception {
 		Parser parser = new PosixParser();
 		 CommandLine params = null;
 		 try{
@@ -1863,8 +1893,9 @@ public static Map<String, String> set = new HashMap<String, String>();
 			 exc.printStackTrace();
 			 return null;
 		 }
-		if (params.hasOption("paramFile")) {
-			if (params.getOptionValue("paramFile").equals("many"))
+		if (hasParams) {
+			System.err.println(params.hasOption("paramFile"));
+			if (params.getOptionValue("paramFile", "param.txt").equals("many"))
 				return null;
 
 			File user;
@@ -1874,7 +1905,7 @@ public static Map<String, String> set = new HashMap<String, String>();
 			} else
 				user = new File(System.getProperty("user.dir"));
 			String[] args1 = read(new File(user, params
-					.getOptionValue("paramFile")), column, rep, repControl, params);
+					.getOptionValue("paramFile", "param.txt")), column, rep, repControl, params);
 			Constants.column = column;
 			Constants.index = rep;
 			Constants.indexControl = repControl;
@@ -1906,7 +1937,7 @@ public static Map<String, String> set = new HashMap<String, String>();
 				parseInner(options[i], opti, column, rep, repControl,params1, params);
 
 			}
-			return parse(args1, opti, column, rep, repControl,params);
+			return parse(args1, opti, column, rep, repControl,params, false);
 		}
 		// if(params.hasOption("type")){
 		// type = params.getOptionValue("type");
@@ -1946,6 +1977,19 @@ public static Map<String, String> set = new HashMap<String, String>();
 			throws Exception {
 		// List<String> l = new ArrayList<String>();
 		String repControl = repControl1 == null ? null : "--" + repControl1;
+		if(!file.exists()){
+			
+			String[] classpath = System.getProperty("java.class.path").split(":");
+			inner: for(int i =0; i<classpath.length; i++ ){
+				File f = new File(classpath[i]);
+				File f1 = new File(f.getParentFile(), "extra-resources");
+				if(f1.exists()){
+					file = new File(f1, "param.txt");
+					if(file.exists()) break inner;
+				}
+			}
+			
+		}
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String st = "";
 		Pattern pat = Pattern.compile("-[0-9]");

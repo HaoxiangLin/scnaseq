@@ -279,7 +279,7 @@ public class CNVHap {
 
 
 	private static void copy(File inputFile, File outputFile) throws Exception{
-    	
+    	if(inputFile.exists()){
     	    FileReader in = new FileReader(inputFile);
     	    FileWriter out = new FileWriter(outputFile);
     	    int c;
@@ -289,6 +289,7 @@ public class CNVHap {
 
     	    in.close();
     	    out.close();
+    	}
     	
 	}
 
