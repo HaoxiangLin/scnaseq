@@ -4976,6 +4976,7 @@ public File dir;
 DataProjection dp;
 public  DataCollection (File f, short index, int no_copies, final int[][] mid,File bf, Collection<String> snp_ids_to_restrict) throws Exception{
 //	System.err.println(Constants.print(mid[0]));
+	System.err.println("file is "+f.getName());
 	 this.chrom = f.getName().split("\\.")[0];//.split("_")[0];
 	if(f.getName().endsWith(".counts") || f.getName().endsWith(".counts.gz")) {
 		chrom = "all";
