@@ -82,7 +82,7 @@ public abstract class  EmissionStateSpace implements List<Comparable>, Serializa
 				}
 			else{
 	
-		  int step = (int) Math.floor(Constants.backgroundCount1/2.0);
+		  int step = 1;//(int) Math.floor(Constants.backgroundCount1/2.0);
 			 col= new Color[str.length*step];
 		 // color_muted  = new Color[this.size()];
 		  Arrays.fill(col, Color.gray);
